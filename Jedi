@@ -1,0 +1,65 @@
+using System;
+
+public class Character
+{
+    private int health;
+    private int strength;
+    public string Faction { get; set; }
+    public int Health
+    {
+        get { return health; }
+        set { health = (value < 1) ? 1 : (value > 100) ? 100 : value; }
+    }
+    public int Strength
+    {
+        get { return strength; }
+        set { strength = (value < 1) ? 1 : (value > 100) ? 100 : value; }
+    }
+    public string SpecialSkill { get; set; }
+
+    public Character(string faction, int health, int strength, string specialSkill)
+    {
+        Faction = faction;
+        Health = health;
+        Strength = strength;
+        SpecialSkill = specialSkill;
+    }
+
+    public void DisplayCharacterInfo()
+    {
+        Console.WriteLine($"Faction: {Faction}");
+        Console.WriteLine($"Health: {Health}");
+        Console.WriteLine($"Strength: {Strength}");
+        Console.WriteLine($"Special Skill: {SpecialSkill}");
+    }
+
+    public void UseSpecialSkill()
+    {
+        Console.WriteLine($"{Faction} character uses their special skill: {SpecialSkill}!");
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Choose your faction:");
+        string faction = Console.ReadLine();
+        Console.WriteLine("Enter health (1-100):");
+        int health = int.Parse(Console.ReadLine());
+        Console.WriteLine("Enter strength (1-100):");
+        int strength = int.Parse(Console.ReadLine());
+        Console.WriteLine("Enter your special skill:");
+        string specialSkill = Console.ReadLine();
+        Character playerCharacter = new Character(faction, health, strength, specialSkill);
+        playerCharacter.DisplayCharacterInfo();
+        Console.WriteLine("Do you want to use your special skill? (y/n)");
+        string useSkill = Console.ReadLine();
+        if (useSkill.ToLower() == "y")
+        {
+            playerCharacter.UseSpecialSkill();
+        }
+        Console.WriteLine("Press any key to exit...");
+        Console.ReadKey();
+    }
+}
